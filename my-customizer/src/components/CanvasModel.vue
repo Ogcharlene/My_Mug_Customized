@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
 
 <canvas ref="canvasRef" class="w-full h-screen" />
 
@@ -7,34 +7,72 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import * as THREE from 'three'; //Import de la librairie Threejs
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvasRef = ref(null);
+
+let model3D = null;
+
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+};
 
 onMounted(() => {
-
     //On crée la scene dans laquelle les éléments à afficher 
-const scene = new THREE.Scene()
+    const scene = new THREE.Scene()
 
-//On ajoute la caméra
-const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-camera.position.z = 5
+    //On ajoute la caméra -> vue utilisateur 
+    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
+    camera.position.z = 5
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+    //Pour gérer le rendu graphique 3D -> moteur de rendu
+    const renderer = new THREE.WebGLRenderer({canvas: canvasRef.value, alpha: true});
+    //canva en plein écran 
+    renderer.setSize(sizes.width, sizes.height)
 
-const material = new THREE.MeshBasicMaterial({ color: 0xffffff});
+    //canvas resize -> Responsive :
+    window.addEventListener('resize', () => {
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
 
-const mesh = new THREE.Mesh(geometry, material);
+        //Adapte le canva par rapport à la taille de l'écran
+        camera.aspect = sizes.width / sizes.height;
+        camera.updateProjectionMatrix(); // car camera.aspect -> pour appliquer la nouvelle "projection"
 
-scene.add(mesh);
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); //netteté du rendu???
+    })
 
-//Pour gérer le rendu graphique 3D
-const renderer = new THREE.WebGLRenderer({canvas});
-renderer.render(scene, camera);
+    //Ajout des lumière sur l'objet 3D:
+    const light = new THREE.DirectionalLight( 0xffffff, 0.5); //couleur & intensité
+    scene.add( light );
 
+    //Chargement du model 3D:
+    const loader = new GLTFLoader();
+    loader.load('/mug.glb', (gltf) => {
+        model3D = gltf.scene;
+        scene.add(model3D);
+    }, undefined,  (err) => {
+        console.error(err);
+    }
+);
+
+    //Gestion déplacement caméra au clique glissé de la souris:
+    const controls = new OrbitControls( camera, renderer.domElement );
+    controls.enableDamping = true; //false par defaut 
+    controls.dampingFactor = 0.5; // Depend de enableDamping = true
+
+    const animate = () => {
+        requestAnimationFrame(animate);
+        controls.update(); // car enableDamping = true
+        renderer.render(scene, camera); 
+    }
+
+    animate(); //appel de la fonction
 
 })
 
-
-
-
-</script> -->
-
+</script>
 
