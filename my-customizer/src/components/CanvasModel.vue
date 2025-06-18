@@ -1,6 +1,6 @@
 <template>
 
-<canvas ref="canvasRef" class="w-full h-screen bg-rose-400" />
+<canvas ref="canvasRef" class="w-full h-screen bg-gradient-to-br from-pink-300 via-purple-400 to-blue-400" />
 
 </template>
 
