@@ -1,6 +1,6 @@
 <template>
 
-<canvas ref="canvasRef" class="w-full h-screen" />
+<canvas ref="canvasRef" class="w-full h-screen bg-rose-400" />
 
 </template>
 
@@ -46,13 +46,23 @@ onMounted(() => {
     })
 
     //Ajout des lumière sur l'objet 3D:
-    const light = new THREE.DirectionalLight( 0xffffff, 0.5); //couleur & intensité
+    const light = new THREE.DirectionalLight( 0xffffff, 2); //couleur & intensité
+    light.position.set(5, 5, 5);
     scene.add( light );
+
+    const ambientLight = new THREE.AmbientLight (0xffffff, 1.5);
+    scene.add( ambientLight);
 
     //Chargement du model 3D:
     const loader = new GLTFLoader();
     loader.load('/mug.glb', (gltf) => {
         model3D = gltf.scene;
+
+        model3D.traverse(function (child) {
+            if (child.isMesh) {
+                child.material = new THREE.MeshStandardMaterial({ color: 0xeeeeee });
+            }
+        });
         scene.add(model3D);
     }, undefined,  (err) => {
         console.error(err);
