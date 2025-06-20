@@ -26,10 +26,6 @@ function getModel3D() {
 
 defineExpose({ getModel3D });
 
-// defineExpose({
-//     getModel3D: () => model3D
-// });
-
 onMounted(() => {
     //On crée la scene dans laquelle les éléments à afficher 
     const scene = new THREE.Scene()
@@ -75,6 +71,7 @@ onMounted(() => {
             }
         });
         scene.add(model3D);
+        //J'envoie mon model3D sous modelLoaded quand il s'ajoute dans la scène 
         emit('modelLoaded', model3D)
     }, undefined,  (err) => {
         console.error(err);

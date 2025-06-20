@@ -1,20 +1,16 @@
 <script setup>
 
+import { defineEmits } from 'vue';
+
 const { canvasRef } = defineProps({
     canvasRef: Object
 }); 
 
+const emit = defineEmits(['selectColor']);
+
 function colorCustomize(color) {
-    const model = canvasRef.value?.getModel3D?.();
-    if(!model) {
-        console.warn('3D Model is not ready');
-        return;      
-    } 
-    model.traverse((child) => {
-        if (child.isMesh) {
-            child.material.color.set(color);
-        }
-    });        
+    console.log('emit is ok ??')
+    emit('selectColor', color);       
 }
 
 </script>
