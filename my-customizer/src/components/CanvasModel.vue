@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineExpose } from 'vue';
 import * as THREE from 'three'; //Import de la librairie Threejs
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -18,6 +18,16 @@ const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 };
+
+function getModel3D() {
+  return model3D;
+}
+
+defineExpose({ getModel3D });
+
+// defineExpose({
+//     getModel3D: () => model3D
+// });
 
 onMounted(() => {
     //On crée la scene dans laquelle les éléments à afficher 
@@ -86,3 +96,5 @@ onMounted(() => {
 
 </script>
 
+
+ 
