@@ -11,6 +11,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const canvasRef = ref(null);
+const emit = defineEmits(['modelLoaded']);
 
 let model3D = null;
 
@@ -74,6 +75,7 @@ onMounted(() => {
             }
         });
         scene.add(model3D);
+        emit('modelLoaded', model3D)
     }, undefined,  (err) => {
         console.error(err);
     }
