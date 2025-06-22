@@ -8,6 +8,7 @@
     import { Color } from 'three';
     import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
     import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+    import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
     import * as THREE from 'three';
 
     //Création d'une ref pour accéder au model3D
@@ -81,6 +82,7 @@
         model.value.add(textMesh);
     }
 
+   
 
 </script>
 
