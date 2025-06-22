@@ -49,10 +49,6 @@ npm run dev
 
 # Demo
 
-### Blender 
-![Screenshot from 2025-06-16 22-56-38.png](attachment:3ee9537b-9a01-4f82-aa7a-ee6cc4a3ef49:Screenshot_from_2025-06-16_22-56-38.png)
-
-### My Mug Customize
 [Demo.webm](https://github.com/user-attachments/assets/9469577e-513f-43eb-b73a-f5b07f6894e9)
 
 
