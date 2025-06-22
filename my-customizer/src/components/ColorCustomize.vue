@@ -16,7 +16,7 @@ function colorCustomize(color) {
 </script>
 
 <template>
-    <div class="flex fixed bottom-0 h-16 ml-2">
+    <div class="flex flex-wrap fixed bottom-0 h-16 ml-2">
         <button @click="colorCustomize('#000000')" class="bg-black w-16 border border-gray-400 rounded shadow-md"></button>
         <button @click="colorCustomize('#ef4444')" class="bg-red-500 w-16 border border-gray-400 rounded shadow-md"></button>
         <button @click="colorCustomize('#f97316')" class="bg-orange-500 w-16 border border-gray-400 rounded shadow-md"></button>
